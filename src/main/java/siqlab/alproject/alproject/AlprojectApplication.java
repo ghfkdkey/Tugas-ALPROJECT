@@ -1,0 +1,13 @@
+package siqlab.alproject.alproject;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class AlprojectApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(AlprojectApplication.class, args);
+	}
+
+}
