@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    lang="en"
+    layout:decorate="~{main}">
+<body>
+<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm" layout:fragment="breadcrumb">
+    <li class="breadcrumb-item">
+        <a th:href="@{/home}" class="text-muted">Beranda</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a th:href="@{/userdetail(userid=${param.userid})}" class="text-muted">User Detail</a>
+    </li>
+</ul>
+<div th:replace="~{menuadminuserdetail :: headernav}" layout:fragment="headernav"></div>
+<div layout:fragment="content">
+    <h3>Registered User</h3>
+    <table>
+        <tbody th:object="${user}">
+            <tr>
+                <td>Full Name</td>
+                <td>&nbsp;:&nbsp;</td>
+                <td th:text="${user.fullname}"></td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td>&nbsp;:&nbsp;</td>
+                <td th:text="${user.username}"></td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td>&nbsp;:&nbsp;</td>
+                <td th:text="${user.role}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <div class="table-responsive" th:if="${tasks!=null}">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <th class="text-center">No.</th>
+                <th class="text-center">Task</th>
+                <th class="text-center">Due Date</th>
+                <th class="text-center">Date Done</th>
+                <th style="width:60px;"></th>
+            </thead>
+            <tbody>
+                <tr th:each="task,stat: ${tasks}" class="" th:classappend="${task.severity==-2?'bg-danger':task.severity==-1?'bg-warning':null}">
+                    <td class="text-center" th:inline="text">[[${stat.index + 1}]].[[${task.severity}]]</td>
+                    <td th:text="${task.taskname}"></td>
+                    <td class="text-center" th:inline="text">[[${#temporals.format(task.duedate,'dd-MM-yyyy')}]]</td>
+                    <td class="text-center" th:inline="text">[[${#temporals.format(task.datedone,'dd-MM-yyyy')}]]</td>
+                    <td class="text-center">
+                        <button jenis="deltaskbtn" th:taskid="${task.getId()}" class="btn btn-icon btn-danger btn-sm mr-2">
+                            <i class="flaticon2-delete"></i>
+                        </button>
+                    </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form id="deltask" th:action="@{/task/deltask}" method="post">
+        <input type="hidden" id="taskidfield" name="taskid"/>
+    </form>
+</div>
+<script layout:fragment="jsbottom">
+    $(function()
+    {
+        $('button[jenis="deltaskbtn"]').click(function()
+        {
+            $('#taskidfield').val($(this).attr('taskid'));
+            $('#deltask').submit();
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    lang="en"
+    layout:decorate="~{main}">
+<body>
+<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm" layout:fragment="breadcrumb">
+    <li class="breadcrumb-item">
+        <a th:href="@{/home}" class="text-muted">Beranda</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a th:href="@{/user/adduser}" class="text-muted">Add User</a>
+    </li>
+</ul>
+<div th:replace="~{menuadminuser :: headernav}" layout:fragment="headernav"></div>
+<div layout:fragment="content">
+    <form method="post" th:action="@{/user/saveuser}" th:object="${user}">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" class="form-control" placeholder="Your full name" th:field="*{fullname}"/>
+            <span class="form-text text-danger" th:errors="*{fullname}" th:if="${#fields.hasErrors('fullname')}"></span>
+        </div>
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" placeholder="Your username" th:field="*{username}"/>
+            <span class="form-text text-danger" th:errors="*{username}" th:if="${#fields.hasErrors('username')}"></span>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" th:field="*{password}"/>
+            <span class="form-text text-danger" th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
+        </div>
+        <div class="form-group">
+            <label>Role</label>
+            <select class="form-control" th:field="*{role}">
+                <option value="admin">admin</option>
+                <option value="user">user</option>
+            </select>
+            <span class="form-text text-danger" th:errors="*{role}" th:if="${#fields.hasErrors('role')}"></span>
+        </div>
+        <input type="submit" class="btn btn-primary mr-2" value="Submit"/>
+    </form>
+</div>
+</body>
+</html>

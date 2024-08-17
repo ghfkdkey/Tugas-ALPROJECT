@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    lang="en">
+<body>
+    <ul class="menu-nav" th:fragment="headernav">
+        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
+            <a th:href="@{/user/adduser}" class="menu-link">
+                <span class="menu-text">Add User</span>
+                <span class="menu-desc">Add new user</span>
+            </a>
+        </li>
+        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
+            <a th:href="@{/task/addtask(userid=${param.userid})}" class="menu-link">
+                <span class="menu-text">Add Task</span>
+                <span class="menu-desc">Add new task</span>
+            </a>
+        </li>
+    </ul>
+</body>
+</html>

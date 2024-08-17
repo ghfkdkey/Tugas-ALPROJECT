@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    lang="en"
+    layout:decorate="~{main}">
+<body>
+<div th:replace="~{menuadminuser :: headernav}" layout:fragment="headernav"></div>
+<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm" layout:fragment="breadcrumb">
+    <li class="breadcrumb-item">
+        <a th:href="@{/home}" class="text-muted">Beranda</a>
+    </li>
+</ul>
+<div layout:fragment="content">
+    <div class="row">
+        <h1>Registered Users</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <th class="text-center">No.</th>
+                    <th class="text-center">Full Name</th>
+                    <th class="text-center">Username</th>
+                    <th class="text-center">Role</th>
+                    <th style="width:60px;"></th>
+                </thead>
+                <tbody>
+                    <tr th:each="user,stat: ${users}">
+                        <td class="text-center" th:inline="text">[[${stat.index + 1}]].</td>
+                        <td>
+                            <a th:href="@{/userdetail(userid=${user.id})}" th:inline="text">[[${user.fullname}]]</a>
+                        </td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.role}"></td>
+                        <td class="text-center">
+                            <button jenis="deluserbtn" th:userid="${user.getId()}" class="btn btn-icon btn-danger btn-sm mr-2">
+                                <i class="flaticon2-delete"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <form id="deluser" th:action="@{/user/deluser}" method="post">
+        <input type="hidden" id="useridfield" name="userid"/>
+    </form>
+</div>
+<script layout:fragment="jsbottom">
+    $(function()
+    {
+        $('button[jenis="deluserbtn"]').click(function()
+        {
+            $('#useridfield').val($(this).attr('userid'));
+            $('#deluser').submit();
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    lang="en"
+    layout:decorate="~{main}">
+<body>
+<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm" layout:fragment="breadcrumb">
+    <li class="breadcrumb-item">
+        <a th:href="@{/home}" class="text-muted">Beranda</a>
+    </li>
+</ul>
+<div layout:fragment="content">
+    <h3>Registered User</h3>
+    <table>
+        <tbody th:object="${user}">
+            <tr>
+                <td>Full Name</td>
+                <td>&nbsp;:&nbsp;</td>
+                <td th:text="${user.fullname}"></td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td>&nbsp;:&nbsp;</td>
+                <td th:text="${user.username}"></td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td>&nbsp;:&nbsp;</td>
+                <td th:text="${user.role}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <div class="table-responsive" th:if="${tasks!=null}">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <th class="text-center">No.</th>
+                <th class="text-center">Task</th>
+                <th class="text-center">Due Date</th>
+                <th class="text-center">Date Done</th>
+                <th style="width:60px;"></th>
+            </thead>
+            <tbody>
+                <tr th:each="task,stat: ${tasks}" class="" th:classappend="${task.severity==-2?'bg-danger':task.severity==-1?'bg-warning':null}">
+                    <td class="text-center" th:inline="text">[[${stat.index + 1}]].</td>
+                    <td th:text="${task.taskname}"></td>
+                    <td class="text-center" th:inline="text">[[${#temporals.format(task.duedate,'dd-MM-yyyy')}]]</td>
+                    <td class="text-center" th:inline="text">[[${#temporals.format(task.datedone,'dd-MM-yyyy')}]]</td>
+                    <td class="text-center" th:if="${task.datedone==null}">
+                        <button jenis="adddonedatebtn" th:taskid="${task.getId()}" class="btn btn-icon btn-success btn-sm mr-2">
+                            <i class="flaticon2-calendar-1"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="adddonedatemodal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Done Date</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <form id="adddonedate" th:action="@{/adddonedate}" method="post">
+                    <input type="hidden" id="taskidfield" name="taskid"/>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Date Done</label>
+                            <input type="date" class="form-control" placeholder="Your date done" name="datedone"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary mr-2" value="Submit"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script layout:fragment="jsbottom">
+    $(function()
+    {
+        $('button[jenis="adddonedatebtn"]').click(function()
+        {
+            $('#taskidfield').val($(this).attr('taskid'));
+            $('#adddonedatemodal').modal("show");
+        });
+    });
+</script>
+</body>
+</html>

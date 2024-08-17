@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title th:inline=text>[[${@environment.getProperty('spring.application.name')}]] | [[${pagename}]]</title>
+    <meta name="description" content="Login page">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="assets/css/poppins.css" rel="stylesheet"  type="text/css">
+    <link href="assets/css/pages/login/classic/login-1.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/loginapexcharts.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="assets/media/logos/ben.ico">
+</head>
+<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled">
+<div class="d-flex flex-column flex-root">
+    <div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid bg-white" id="kt_login">
+        <div class="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10" style="background-image: url(assets/media/bg/bg-5.jpg);">
+            <div class="d-flex flex-row-fluid flex-column justify-content-between">
+                <div class="flex-column-auto mt-5 pb-lg-0 pb-10">
+                    <img src="assets/media/logos/ben.png" class="max-h-70px" alt="">
+                </div>
+                <div class="flex-column-fluid d-flex flex-column justify-content-center">
+                    <h3 class="font-size-h2 mb-5 text-white">Selamat Datang di <span style="color:red;">A</span>LPROJECT</span>!</h3>
+                    <p class="font-weight-lighter text-white opacity-80">
+                        Aplikasi Task List untuk memenuhi tugas Asynchronous mata kuliah Algoritma dan Pemrograman.<br/>Dibuat oleh:
+                        <table class="font-weight-lighter text-white opacity-80">
+                            <tr><td>Nama</td><td>&nbsp;:&nbsp;</td><td>Balqis Eka Nurfadisyah</td></tr>
+                            <tr><td>NIM</td><td>&nbsp;:&nbsp;</td><td>11510010</td></tr>
+                            <tr><td>Program Studi</td><td>&nbsp;:&nbsp;</td><td>Sistem Informasi</td></tr>
+                            <tr><td>Fakultas</td><td>&nbsp;:&nbsp;</td><td>Rekayasa Industri</td></tr>
+                        </table>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">
+            <div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
+                <div class="login-form login-signin">
+                    <div class="text-center mb-10 mb-lg-20">
+                        <h3 class="font-size-h1">Login</h3>
+                        <p class="text-muted font-weight-bold">Masukkan username dan password</p>
+                    </div>
+                    <form class="form fv-plugins-bootstrap fv-plugins-framework" novalidate="novalidate" id="kt_login_signin_form" method="post" th:action="@{/}">
+                        <div class="form-group fv-plugins-icon-container">
+                            <input class="form-control form-control-solid h-auto py-5 px-6" type="text" placeholder="Username" name="username" autocomplete="off">
+                            <div class="fv-plugins-message-container"></div>
+                        </div>
+                        <div class="form-group fv-plugins-icon-container">
+                            <input class="form-control form-control-solid h-auto py-5 px-6" type="password" placeholder="Password" name="password" autocomplete="off">
+                            <div class="fv-plugins-message-container"></div>
+                        </div>
+                        <div class="form-group flex-wrap justify-content-between align-items-center text-right">
+                            <input type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3" value="login"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/js/ktappsettings.js"></script>
+<script src="assets/plugins/global/plugins.bundle.js"></script>
+<script src="assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
+<script src="assets/js/scripts.bundle.js"></script>
+</body>
+</html>
