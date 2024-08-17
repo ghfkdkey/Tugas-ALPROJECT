@@ -47,7 +47,7 @@
             </thead>
             <tbody>
                 <tr th:each="task,stat: ${tasks}" class="" th:classappend="${task.severity==-2?'bg-danger':task.severity==-1?'bg-warning':null}">
-                    <td class="text-center" th:inline="text">[[${stat.index + 1}]].[[${task.severity}]]</td>
+                    <td class="text-center" th:inline="text">[[${stat.index + 1}]].</td>
                     <td th:text="${task.taskname}"></td>
                     <td class="text-center" th:inline="text">[[${#temporals.format(task.duedate,'dd-MM-yyyy')}]]</td>
                     <td class="text-center" th:inline="text">[[${#temporals.format(task.datedone,'dd-MM-yyyy')}]]</td>

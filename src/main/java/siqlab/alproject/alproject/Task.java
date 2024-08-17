@@ -55,9 +55,6 @@ public class Task
 
             if (days < 0)
                 return -2;
-
-            if (days <= 2)
-                return -1;
         }
 
         return 0;
